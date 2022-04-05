@@ -1,16 +1,18 @@
 import 'dart:ui';
-import 'package:saleo_app/signup_page/already_member_login.dart';
+import 'package:saleo_app/pages/signup_page/already_member_login.dart';
 import 'package:saleo_app/widgets/button.dart';
-import 'package:saleo_app/widgets/mail_id_field.dart';
+import 'package:saleo_app/widgets/username_field.dart';
 import 'package:saleo_app/widgets/password_field.dart';
-import 'package:saleo_app/window_buttons.dart';
+import 'package:saleo_app/widgets/window_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+final TextEditingController _usernameController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
+final TextEditingController _repasswordController = TextEditingController();
+
 class SignUpPage extends StatelessWidget {
-  SignUpPage({Key? key}) : super(key: key);
-  final TextEditingController passController = TextEditingController();
-  final TextEditingController repassController = TextEditingController();
+  const SignUpPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,20 +94,22 @@ class SignUpPage extends StatelessWidget {
                                       const SizedBox(
                                         height: 100,
                                       ),
-                                      const MailIDField(),
+                                      UsernameField(
+                                        controller: _usernameController,
+                                      ),
                                       const SizedBox(
                                         height: 20,
                                       ),
                                       PasswordField(
+                                        controller: _passwordController,
                                         hintText: "Enter a new password",
-                                        passController: passController,
                                       ),
                                       const SizedBox(
                                         height: 20,
                                       ),
                                       PasswordField(
+                                        controller: _repasswordController,
                                         hintText: "ReEnter new password",
-                                        passController: repassController,
                                       ),
                                       const SizedBox(
                                         height: 15,
@@ -114,7 +118,7 @@ class SignUpPage extends StatelessWidget {
                                         height: 40,
                                       ),
                                       const Button(
-                                        buttonText: "Sign up",
+                                        signin: false,
                                       ),
                                       const SizedBox(
                                         height: 60,
@@ -138,4 +142,18 @@ class SignUpPage extends StatelessWidget {
       ),
     );
   }
+}
+
+String getUsernameSignUp() {
+  return _usernameController.text.trim();
+}
+
+String getPasswordSignUp() {
+  return _passwordController.text.trim();
+}
+
+void clearSignupFields() {
+  _usernameController.clear();
+  _passwordController.clear();
+  _repasswordController.clear();
 }

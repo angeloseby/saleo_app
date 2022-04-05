@@ -1,17 +1,19 @@
 import 'dart:ui';
-import 'package:saleo_app/login_page/forgot_password.dart';
-import 'package:saleo_app/login_page/new_user_sign_up.dart';
+import 'package:saleo_app/pages/login_page/forgot_password.dart';
+import 'package:saleo_app/pages/login_page/new_user_sign_up.dart';
 import 'package:saleo_app/widgets/button.dart';
-import 'package:saleo_app/widgets/mail_id_field.dart';
+import 'package:saleo_app/widgets/username_field.dart';
 import 'package:saleo_app/widgets/password_field.dart';
-import 'package:saleo_app/window_buttons.dart';
+import 'package:saleo_app/widgets/window_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+final TextEditingController _usernameController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
 
-  final TextEditingController passController = TextEditingController();
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,13 +95,15 @@ class LoginPage extends StatelessWidget {
                                       const SizedBox(
                                         height: 100,
                                       ),
-                                      const MailIDField(),
+                                      UsernameField(
+                                        controller: _usernameController,
+                                      ),
                                       const SizedBox(
                                         height: 20,
                                       ),
                                       PasswordField(
+                                        controller: _passwordController,
                                         hintText: "Enter password",
-                                        passController: passController,
                                       ),
                                       const SizedBox(
                                         height: 15,
@@ -109,7 +113,7 @@ class LoginPage extends StatelessWidget {
                                         height: 40,
                                       ),
                                       const Button(
-                                        buttonText: "Sign in",
+                                        signin: true,
                                       ),
                                       const SizedBox(
                                         height: 60,
@@ -133,4 +137,17 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
+}
+
+void clearLoginFields() {
+  _usernameController.clear();
+  _passwordController.clear();
+}
+
+String getUsernameLogin() {
+  return _usernameController.text.trim();
+}
+
+String getPasswordLogin() {
+  return _passwordController.text.trim();
 }

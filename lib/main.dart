@@ -1,9 +1,8 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'pages/login_page/login_page.dart';
 
-import 'login_page/login_page.dart';
-
-void main() {
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized;
   runApp(const MyApp());
   doWhenWindowReady(() {

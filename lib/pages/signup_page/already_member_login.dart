@@ -1,6 +1,7 @@
-import 'package:saleo_app/login_page/login_page.dart';
+import 'package:saleo_app/pages/login_page/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saleo_app/pages/signup_page/signup_page.dart';
 
 class AlreadyMemberLogin extends StatefulWidget {
   const AlreadyMemberLogin({
@@ -28,6 +29,7 @@ class _AlreadyMemberLoginState extends State<AlreadyMemberLogin> {
       },
       onTap: () {
         print("Already have an account, SignIn ! button pressed");
+        clearSignupFields();
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) {

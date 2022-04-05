@@ -3,11 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class PasswordField extends StatefulWidget {
   const PasswordField(
-      {Key? key, required this.hintText, required this.passController})
+      {Key? key, required this.hintText, required this.controller})
       : super(key: key);
 
   final String hintText;
-  final TextEditingController passController;
+  final TextEditingController controller;
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -21,7 +21,7 @@ class _PasswordFieldState extends State<PasswordField> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * .8,
       child: TextFormField(
-        controller: widget.passController,
+        controller: widget.controller,
         obscureText: isObscure,
         autocorrect: false,
         keyboardType: TextInputType.visiblePassword,

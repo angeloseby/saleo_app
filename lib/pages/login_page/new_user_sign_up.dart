@@ -1,4 +1,5 @@
-import 'package:saleo_app/signup_page/signup_page.dart';
+import 'package:saleo_app/pages/login_page/login_page.dart';
+import 'package:saleo_app/pages/signup_page/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,10 +29,11 @@ class _NewUserSignUpState extends State<NewUserSignUp> {
       },
       onTap: () {
         print("I'm a new user, Sign Up Clicked");
+        clearLoginFields();
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) {
-              return SignUpPage();
+              return const SignUpPage();
             },
           ),
         );
