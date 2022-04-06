@@ -12,7 +12,9 @@ final TextEditingController _passwordController = TextEditingController();
 final TextEditingController _repasswordController = TextEditingController();
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  SignUpPage({Key? key}) : super(key: key);
+
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +67,7 @@ class SignUpPage extends StatelessWidget {
                                   top: 15,
                                   left: 30,
                                   child: Text(
-                                    "Welcome,",
+                                    "Welcome to SaleO,",
                                     style: GoogleFonts.sourceSansPro(
                                       fontSize: 50,
                                       fontWeight: FontWeight.w700,
@@ -78,7 +80,7 @@ class SignUpPage extends StatelessWidget {
                                   top: 70,
                                   left: 35,
                                   child: Text(
-                                    "Sign up now !",
+                                    "Create a user",
                                     style: GoogleFonts.sourceSansPro(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600,
@@ -88,43 +90,50 @@ class SignUpPage extends StatelessWidget {
                                   ),
                                 ),
                                 Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const SizedBox(
-                                        height: 100,
-                                      ),
-                                      UsernameField(
-                                        controller: _usernameController,
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      PasswordField(
-                                        controller: _passwordController,
-                                        hintText: "Enter a new password",
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      PasswordField(
-                                        controller: _repasswordController,
-                                        hintText: "ReEnter new password",
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      const SizedBox(
-                                        height: 40,
-                                      ),
-                                      const Button(
-                                        signin: false,
-                                      ),
-                                      const SizedBox(
-                                        height: 60,
-                                      ),
-                                      const AlreadyMemberLogin(),
-                                    ],
+                                  child: Form(
+                                    key: _formKey,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(
+                                          height: 100,
+                                        ),
+                                        UsernameField(
+                                          controller: _usernameController,
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        PasswordField(
+                                          controller: _passwordController,
+                                          hintText: "Enter a new password",
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        PasswordField(
+                                          controller: _repasswordController,
+                                          hintText: "ReEnter new password",
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        const SizedBox(
+                                          height: 40,
+                                        ),
+                                        Button(
+                                          signin: false,
+                                          formKey: _formKey,
+                                        ),
+                                        const SizedBox(
+                                          height: 60,
+                                        ),
+                                        const AlreadyMemberLogin(),
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],
@@ -150,6 +159,10 @@ String getUsernameSignUp() {
 
 String getPasswordSignUp() {
   return _passwordController.text.trim();
+}
+
+String getRepasswordSignUp() {
+  return _repasswordController.text.trim();
 }
 
 void clearSignupFields() {

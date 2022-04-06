@@ -2,11 +2,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saleo_app/pages/login_page/login_page.dart';
+import 'package:saleo_app/widgets/custom_alert_dialog.dart';
 import '../pages/signup_page/signup_page.dart';
 
 class Button extends StatefulWidget {
-  const Button({Key? key, required this.signin}) : super(key: key);
+  const Button({Key? key, required this.signin, required this.formKey})
+      : super(key: key);
   final bool signin;
+  final GlobalKey<FormState> formKey;
   @override
   State<Button> createState() => _ButtonState();
 }
@@ -33,7 +36,7 @@ class _ButtonState extends State<Button> {
         });
       },
       onTap: () {
-        widget.signin ? _signIn() : _signUp();
+        widget.signin ? _validateSignIn() : _validateSignUp();
       },
       child: Container(
         decoration: BoxDecoration(
@@ -72,16 +75,63 @@ class _ButtonState extends State<Button> {
     );
   }
 
-  void _signUp() {
+  _validateSignUp() {
     String username = getUsernameSignUp();
     String password = getPasswordSignUp();
-    print("Sign up clicked + $username+:::::+$password");
+    String repassword = getRepasswordSignUp();
+    if (widget.formKey.currentState!.validate()) {
+      if (repassword == password) {
+        showDialog(
+          context: context,
+          builder: (context) => const CustomAlertDialog(
+              width: 300,
+              height: 300,
+              backgroundColor: Colors.green,
+              text: "User Created Succesfully",
+              textSize: 30),
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => const CustomAlertDialog(
+              width: 300,
+              height: 300,
+              backgroundColor: Colors.red,
+              text: "Passwords doesn't match",
+              textSize: 30),
+        );
+      }
+      print("username : $username\npassword : $password");
+    }
   }
 
-  void _signIn() {
+  _validateSignIn() {
     print("Sign in clicked");
     String username = getUsernameLogin();
     String password = getPasswordLogin();
-    print("Sign in clicked + $username+:::::+$password");
+    if (widget.formKey.currentState!.validate()) {
+      if (username == password) {
+        showDialog(
+          context: context,
+          builder: (context) => const CustomAlertDialog(
+              width: 300,
+              height: 300,
+              backgroundColor: Colors.green,
+              text: "Sign In Success",
+              textSize: 30),
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => const CustomAlertDialog(
+              width: 300,
+              height: 300,
+              backgroundColor: Colors.red,
+              text: "ERROR !",
+              textSize: 30),
+        );
+      }
+      print("Sign in clicked + $username+:::::+$password");
+    }
   }
 }

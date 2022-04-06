@@ -33,7 +33,7 @@ class _NewUserSignUpState extends State<NewUserSignUp> {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) {
-              return const SignUpPage();
+              return SignUpPage();
             },
           ),
         );

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PasswordField extends StatefulWidget {
-  const PasswordField(
-      {Key? key, required this.hintText, required this.controller})
-      : super(key: key);
+  const PasswordField({
+    Key? key,
+    required this.hintText,
+    required this.controller,
+  }) : super(key: key);
 
   final String hintText;
   final TextEditingController controller;
@@ -21,6 +23,15 @@ class _PasswordFieldState extends State<PasswordField> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * .8,
       child: TextFormField(
+        validator: ((value) {
+          if (value!.isEmpty) {
+            return "This field can't be blank";
+          } else if (value.length < 8) {
+            return "Passwords are minimum 8 character long";
+          } else {
+            return null;
+          }
+        }),
         controller: widget.controller,
         obscureText: isObscure,
         autocorrect: false,

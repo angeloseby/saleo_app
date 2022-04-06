@@ -12,7 +12,9 @@ final TextEditingController _usernameController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class LoginPage extends StatelessWidget {
                                   top: 15,
                                   left: 30,
                                   child: Text(
-                                    "Welcome,",
+                                    "Welcome to SaleO,",
                                     style: GoogleFonts.sourceSansPro(
                                       fontSize: 50,
                                       fontWeight: FontWeight.w700,
@@ -89,37 +91,44 @@ class LoginPage extends StatelessWidget {
                                   ),
                                 ),
                                 Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const SizedBox(
-                                        height: 100,
-                                      ),
-                                      UsernameField(
-                                        controller: _usernameController,
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      PasswordField(
-                                        controller: _passwordController,
-                                        hintText: "Enter password",
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      const ForgotPassword(),
-                                      const SizedBox(
-                                        height: 40,
-                                      ),
-                                      const Button(
-                                        signin: true,
-                                      ),
-                                      const SizedBox(
-                                        height: 60,
-                                      ),
-                                      const NewUserSignUp(),
-                                    ],
+                                  child: Form(
+                                    key: _formKey,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(
+                                          height: 100,
+                                        ),
+                                        UsernameField(
+                                          controller: _usernameController,
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        PasswordField(
+                                          controller: _passwordController,
+                                          hintText: "Enter password",
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        const ForgotPassword(),
+                                        const SizedBox(
+                                          height: 40,
+                                        ),
+                                        Button(
+                                          signin: true,
+                                          formKey: _formKey,
+                                        ),
+                                        const SizedBox(
+                                          height: 60,
+                                        ),
+                                        const NewUserSignUp(),
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],
