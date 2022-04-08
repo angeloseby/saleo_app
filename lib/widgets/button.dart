@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:saleo_app/database/models/user_model.dart';
 import 'package:saleo_app/pages/login_page/login_page.dart';
 import 'package:saleo_app/widgets/custom_alert_dialog.dart';
 import '../pages/signup_page/signup_page.dart';
@@ -80,15 +82,25 @@ class _ButtonState extends State<Button> {
     String password = getPasswordSignUp();
     String repassword = getRepasswordSignUp();
     if (widget.formKey.currentState!.validate()) {
-      if (repassword == password) {
-        showDialog(
-          context: context,
-          builder: (context) => const CustomAlertDialog(
-              width: 300,
-              height: 300,
-              backgroundColor: Colors.green,
-              text: "User Created Succesfully",
-              textSize: 30),
+      if (password == repassword) {
+        final user = User(username: username, password: password);
+        _addUser(user);
+        _showUsers();
+        clearSignupFields();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("User Created Succesfully. Login to continue."),
+            duration: Duration(seconds: 5),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return LoginPage();
+            },
+          ),
         );
       } else {
         showDialog(
@@ -101,7 +113,6 @@ class _ButtonState extends State<Button> {
               textSize: 30),
         );
       }
-      print("username : $username\npassword : $password");
     }
   }
 
@@ -133,5 +144,20 @@ class _ButtonState extends State<Button> {
       }
       print("Sign in clicked + $username+:::::+$password");
     }
+  }
+}
+
+_addUser(User newUser) {
+  final userDB = Hive.box("user");
+  userDB.add(newUser);
+}
+
+_showUsers() {
+  final db = Hive.box("user");
+  //List users_array = [];
+  var i;
+  for (i = 0; i < db.length; i++) {
+    final user = db.get(i) as User;
+    print("usename $i : ${user.username}  password $i : ${user.password}\n");
   }
 }
