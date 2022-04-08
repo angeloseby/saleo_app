@@ -1,16 +1,13 @@
-# saleo_app
+# SaleO App
 
 A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This Project is under development.
+Only sample Sign in page and Sign up page is implemented.
 
-A few resources to get you started if this is your first Flutter project:
+If you are interested in trying out this project on web click the link below:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [Web model of SaleO App](https://angeloseby.github.io/saleo_app_web/)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
